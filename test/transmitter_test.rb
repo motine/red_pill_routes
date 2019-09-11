@@ -4,7 +4,7 @@ require_relative 'test_helper'
 
 require 'ostruct'
 
-describe Transmitter do
+describe Transmitter do # rubocop:disable Metrics/BlockLength
   before do
     @route1 = Route.new('gamma', 'lambda', Time.new(2030, 12, 31, 13, 0, 4, '+00:00'), Time.new(2030, 12, 31, 13, 0, 6, '+00:00'), 'mysource')
     @route2 = Route.new('beta', 'lambda', Time.new(2030, 12, 31, 13, 0, 5, '+00:00'), Time.new(2030, 12, 31, 13, 0, 7, '+00:00'), 'mysource')
@@ -16,13 +16,13 @@ describe Transmitter do
       transmitter = Transmitter.new('http://example.net/routes', 'secret')
 
       argument_validator = proc do |url, options|
-        url.must_equal "http://example.net/routes"
-        options[:query].must_equal({
+        url.must_equal 'http://example.net/routes'
+        options[:query].must_equal(
           passphrase: 'secret',
           source: 'mysource',
           start_node: 'gamma', end_node: 'lambda',
           start_time: '2030-12-31T13:00:04', end_time: '2030-12-31T13:00:06'
-        })
+        )
         OpenStruct.new(code: 201)
       end
 

@@ -28,9 +28,6 @@ module Database
       raise 'implement me!'
     end
 
-    # Calls the endpoint and unpacks the zip info @contents.
-    def retrieve_contents; end
-
     # Reads the json from the filename's contents and returns a list of OpenStructs.
     # Assumes that the JSON in contents contains a hash with a single key that maps to a list.
     def json_array(filename)
