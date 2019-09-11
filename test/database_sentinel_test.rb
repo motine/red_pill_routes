@@ -17,4 +17,6 @@ describe Database::Sentinel do
       @fixture_routes.each { |fixture| routes.must_include(fixture) }
     end
   end
+
+  # depending on the stability of the input data, we could write much more tests and validate the data when consuming.
 end
