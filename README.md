@@ -34,9 +34,7 @@ In `lib/lib.rb`, we set the environment variable for Ruby's default timezone, so
 ## Decisions & Future work
 
 - I chose **minitest over rspec** to keep dependencies low
-- I chose to use the provided **source data as fixtures** for the tests.
-  My rationale is, that later when this program becomes production code, the sources would be acquired dynamically anyway.
-  Hence, we would then put the static files under `sources` into the `test` folder, so they semantically belong to the tests.
+- I chose to use downloaded versions of the **source data as fixtures** for the tests.
 - Depending on the stability of the input data, we could/should write much **more tests**.
 - Also, we should add more validations in during parsing, so we **detect faulty data** files.
 - Some of the parsing operations (such as joining/denormalizing) could be done with a helper library or a real database.

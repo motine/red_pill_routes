@@ -6,7 +6,7 @@ module Database
   class Base
     attr_accessor :routes
 
-    def initialize(url, passphrase)
+    def initialize(url=nil, passphrase=nil)
       @url = url
       @passphrase = passphrase
       
