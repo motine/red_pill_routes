@@ -1,5 +1,5 @@
 module Database
-  class Aggregator
+  class Aggregator < Base
     def initialize(*databases)
       @databases = databases
     end

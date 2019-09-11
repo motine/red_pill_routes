@@ -6,14 +6,13 @@ module Database
 
     def initialize(relative_folder_path)
       @absolute_folder_path = File.absolute_path(File.join(__dir__, '..', '..', relative_folder_path))
-      @routes = []
-      parse
+      @routes = parse_routes
     end
 
     protected
 
-    # Populates the @routes member. Must be overridden in the concrete classes.
-    def parse
+    # Reads the data from the files and returns a list of Routes. Must be overridden in the concrete classes.
+    def parse_routes
       raise 'implement me!'
     end
   end

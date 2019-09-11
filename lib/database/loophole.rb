@@ -6,9 +6,9 @@ module Database
   class Loophole < Base
     protected
 
-    def parse
+    def parse_routes
       stretches = denormalize(read_route_entries, read_node_pairs)
-      @routes = routes_from_stretches(stretches)
+      return routes_from_stretches(stretches)
     end
 
     private
