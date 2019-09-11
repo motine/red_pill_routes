@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'zip'
-
 module Database
   # (Abstract) base class for all databases.
   #
@@ -13,10 +11,8 @@ module Database
   class Base
     attr_reader :routes
 
-    def initialize(url = nil, passphrase = nil)
-      @url = url
-      @passphrase = passphrase
-      retrieve_contents
+    def initialize(loader)
+      @contents = loader.retrieve(source)
       parse_routes
     end
 
@@ -33,21 +29,7 @@ module Database
     end
 
     # Calls the endpoint and unpacks the zip info @contents.
-    def retrieve_contents
-      response = HTTParty.get(@url, query: { 'passphrase' => @passphrase, 'source' => source })
-
-      @contents = {}
-      Zip::File.open_buffer(response.body) do |zip_file| # stolen here: https://stackoverflow.com/a/43748729/4007237
-        # Handle entries one by one
-        zip_file.each do |entry|
-          next if entry.ftype != :file || entry.name.include?('__MACOSX')
-
-          filename = File.basename(entry.name)
-          content = entry.get_input_stream.read
-          @contents[filename] = content
-        end
-      end
-    end
+    def retrieve_contents; end
 
     # Reads the json from the filename's contents and returns a list of OpenStructs.
     # Assumes that the JSON in contents contains a hash with a single key that maps to a list.

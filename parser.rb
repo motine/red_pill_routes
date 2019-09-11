@@ -9,7 +9,8 @@ DATABASES_TO_INSTANCIATE = [Database::Loophole, Database::Sentinel, Database::Sn
 
 def create_database(logger)
   logger.info('Reading data from files')
-  database_instances = DATABASES_TO_INSTANCIATE.collect { |klass| klass.new(URL, PASSPHRASE) }
+  loader = Loader::ZipFromUrl.new(URL, PASSPHRASE)
+  database_instances = DATABASES_TO_INSTANCIATE.collect { |klass| klass.new(loader) }
   database = Database::Aggregator.new(database_instances)
   logger.info("Found #{database.routes.size} routes.")
   database

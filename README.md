@@ -21,6 +21,13 @@ rake test
 
 ## Notes
 
+### Overview
+
+A `Loader` is responsible to fetch data from a source (e.g. getting and unpacking the ZIP from the server).  
+A `Database` uses such a loader to retrieve the files and then uses this content to calculate the routes.  
+The `Database::Aggregator` merges multiple databases into one while fulfilling the same interface as `Database::Base`.  
+The `Transmitter` is responsible for sending a database to the Distribusion server.
+
 ### Timezones
 
 We assume every timezone to be UTC (+00:00) unless specified differently.
