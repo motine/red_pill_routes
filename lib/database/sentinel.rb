@@ -19,7 +19,6 @@ module Database
 
     def routes_from_entries
       entries.group_by(&:route_id).collect do |_route_id, route_entries|
-        next nil if route_entries.size == 1 # routes with no hop in between are bad
         sorted = route_entries.sort_by(&:index)
         Route.new(
           sorted.first.node, sorted.last.node,
@@ -33,10 +32,11 @@ module Database
     # index is a preprocessed to be an integer (important for sorting later).
     def entries
       csv_content('routes.csv').collect do |entry|
+        next nil unless ['alpha', 'beta', 'gamma', 'delta', 'theta', 'lambda', 'tau', 'psi', 'omega'].include?(entry.node)
         entry.time = Time.parse(entry.time).utc
         entry.index = entry.index.to_i
         entry
-      end
+      end.compact
     end
   end
 end
