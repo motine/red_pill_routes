@@ -9,7 +9,6 @@ module Database
     def initialize(url=nil, passphrase=nil)
       @url = url
       @passphrase = passphrase
-      
       retrieve_contents
       parse_routes
     end

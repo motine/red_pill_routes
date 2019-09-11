@@ -12,7 +12,7 @@ module Database
     protected
 
     def parse_routes
-      stretches = denormalize(route_entries, node_pairs)
+      stretches = gather_stretches
       @routes = routes_from_stretches(stretches)
     end
 
@@ -29,7 +29,7 @@ module Database
     end
 
     # returns a list of Stretches by combining the information of node_pairs and route_entries
-    def denormalize(route_entries, node_pairs)
+    def gather_stretches
       route_entries.collect do |entry|
         node_pair = node_pairs[entry.node_pair_id]
         next nil if node_pair.nil?
@@ -40,7 +40,7 @@ module Database
     # returns a hash by reading from `node_pairs.json`.
     # the key is the id of the node_pair, the value an openstruct with start_node and end_node set
     def node_pairs
-      json_array('node_pairs.json').reduce({}) { |acc, pair| 
+      @node_pairs ||= json_array('node_pairs.json').reduce({}) { |acc, pair| 
         acc[pair.id] = pair
         acc
       }

@@ -9,17 +9,16 @@ def main
   logger = Logger.new(STDOUT)
   
   logger.info("Reading data from files")
-  # database = Database::Aggregator.new(
-  #   Database::Loophole.new(URL, PASSPHRASE),
-  #   Database::Sentinel.new(URL, PASSPHRASE),
-  #   Database::Sniffer.new(URL, PASSPHRASE))
-  # logger.info("Found #{database.routes.size} routes.")
-  database = Database::Sniffer.new(URL, PASSPHRASE)
-  puts database.routes.inspect
+  database = Database::Aggregator.new(
+    Database::Loophole.new(URL, PASSPHRASE),
+    Database::Sentinel.new(URL, PASSPHRASE),
+    Database::Sniffer.new(URL, PASSPHRASE))
+  logger.info("Found #{database.routes.size} routes.")
 
-  # logger.info("Will post the routes now...")
-  # Transmitter.transmit_all(database.routes)
-  # logger.info("successfully posted")
+  logger.info("Will post the routes now...")
+  transmitter = Transmitter.new(URL, PASSPHRASE)
+  transmitter.transmit_all(database.routes)
+  logger.info("successfully posted")
 end
 
 main

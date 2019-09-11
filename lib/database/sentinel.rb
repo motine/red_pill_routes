@@ -12,12 +12,12 @@ module Database
     protected
 
     def parse_routes
-      @routes = routes_from_entries(entries)
+      @routes = routes_from_entries
     end
 
     private
 
-    def routes_from_entries(entries)
+    def routes_from_entries
       entries.group_by(&:route_id).collect do |_route_id, route_entries|
         next nil if route_entries.size == 1 # routes with no hop in between are bad
         sorted = route_entries.sort_by(&:index)

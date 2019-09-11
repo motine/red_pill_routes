@@ -12,7 +12,7 @@ module Database
     protected
 
     def parse_routes
-      stretches = denormalize(sequences, node_times)
+      stretches = gather_stretches
       @routes = routes_from_stretches(stretches, route_entries)
     end
 
@@ -26,12 +26,12 @@ module Database
         Route.new(
           sorted.first.start_node, sorted.last.end_node,
           start_time, start_time + route_duration,
-          'sniffers')
+          source)
       end
     end
 
     # reads sequences.csv and combines
-    def denormalize(sequences, node_times)
+    def gather_stretches
       sequences.collect do |sequence|
         node_time = node_times[sequence.node_time_id]
         next if node_time.nil?
@@ -46,7 +46,7 @@ module Database
     # returns a hash mapping the node_time_id to an openstruct with (start_node, end_node, duration).
     # duration is measured in seconds
     def node_times
-      csv_content('node_times.csv').reduce({}) do |acc, row|
+      @node_times ||= csv_content('node_times.csv').reduce({}) do |acc, row|
         row.duration = row.duration_in_milliseconds.to_f / 1000
         acc[row.node_time_id] = row
         acc
