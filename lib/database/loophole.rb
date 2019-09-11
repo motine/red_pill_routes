@@ -18,7 +18,8 @@ module Database
         sorted = Stretch.order(group_streches)
         Route.new(
           sorted.first.start_node, sorted.last.end_node,
-          sorted.first.metadata.start_time, sorted.last.metadata.end_time)
+          sorted.first.metadata.start_time, sorted.last.metadata.end_time,
+          'loophole')
       end
     end
 
