@@ -49,5 +49,4 @@ This algorithm is very limited at the moment, but can easily be extended.
 - Depending on the stability of the input data, we could/should write much **more tests**.
 - Also, we should add more validations in during parsing, so we **detect faulty data** files (e.g. we are only checking for the correct node name in Sentinel).
 - Some of the parsing operations (such as joining/denormalizing) could be done with a helper library or a real database.
-  Again, I decided to not do this.
 - We should **not store credentials** in the code (as seen in Transmitter). Here we should add a secret storage.
