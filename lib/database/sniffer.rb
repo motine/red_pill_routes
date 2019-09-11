@@ -30,7 +30,7 @@ module Database
       end
     end
 
-    # reads sequences.csv and combines
+    # Reads sequences and node_times and combines them to stretches.
     def gather_stretches
       sequences.collect do |sequence|
         node_time = node_times[sequence.node_time_id]
@@ -43,8 +43,8 @@ module Database
       csv_content('sequences.csv')
     end
 
-    # returns a hash mapping the node_time_id to an openstruct with (start_node, end_node, duration).
-    # duration is measured in seconds
+    # Returns a hash mapping the node_time_id to an OpenStruct with (start_node, end_node, duration).
+    # duration is measured in seconds.
     def node_times
       @node_times ||= csv_content('node_times.csv').reduce({}) do |acc, row|
         row.duration = row.duration_in_milliseconds.to_f / 1000
@@ -53,7 +53,7 @@ module Database
       end
     end
 
-    # returns a has mapping the route_id to OpenStructs with attribute time.
+    # Returns a has mapping the route_id to OpenStructs with attribute time.
     # time is a preprocessed to be of type Time.
     def route_entries
       csv_content('routes.csv').reduce({}) do |acc, row|

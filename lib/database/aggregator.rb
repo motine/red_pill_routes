@@ -1,6 +1,7 @@
 module Database
+  # Aggregates the routes of multiple databases.
   class Aggregator < Base
-    def initialize(*databases)
+    def initialize(databases)
       @databases = databases
     end
 

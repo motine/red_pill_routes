@@ -27,7 +27,7 @@ module Database
       end.compact
     end
 
-    # returns a list of OpenStructs with attributes route_id, node, index, time.
+    # Returns a list of OpenStructs with attributes route_id, node, index, time.
     # time is a preprocessed to be of type Time.
     # index is a preprocessed to be an integer (important for sorting later).
     def entries

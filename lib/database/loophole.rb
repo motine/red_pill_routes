@@ -28,7 +28,7 @@ module Database
       end
     end
 
-    # returns a list of Stretches by combining the information of node_pairs and route_entries
+    # Returns a list of Stretches by combining the information of node_pairs and route_entries
     def gather_stretches
       route_entries.collect do |entry|
         node_pair = node_pairs[entry.node_pair_id]
@@ -37,8 +37,8 @@ module Database
       end.compact
     end
 
-    # returns a hash by reading from `node_pairs.json`.
-    # the key is the id of the node_pair, the value an openstruct with start_node and end_node set
+    # Returns a hash by reading from `node_pairs.json`.
+    # The key is the id of the node_pair, the value an OpenStruct with start_node and end_node set.
     def node_pairs
       @node_pairs ||= json_array('node_pairs.json').reduce({}) { |acc, pair| 
         acc[pair.id] = pair
@@ -46,8 +46,8 @@ module Database
       }
     end
 
-    # returns a list of openstructs by reading from `routes.json` (format see in json file).
-    # start_time and end_time are preprocessed
+    # Returns a list of openstructs by reading from `routes.json` (format see in json file).
+    # start_time and end_time are preprocessed.
     def route_entries
       json_array('routes.json').collect do |entry|
         entry.start_time = Time.parse(entry.start_time)

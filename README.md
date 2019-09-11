@@ -21,15 +21,19 @@ rake test
 
 ## Notes
 
-### Class hierarchy
-
-TODO describe the architecture
-
 ### Timezones
 
 We assume every timezone to be UTC (+00:00) unless specified differently.
 In `lib/lib.rb`, we set the environment variable for Ruby's default timezone, so using `Time.new` uses UTC.
 
+### Stretches
+
+`Stretch` represents a part of a route.
+In the data retrieved from the sources, the connections between a route start and end node were always sorted.
+Yet, in real life one would assume, that the order might get scrambled up.
+For example in `loopholes` we have stretches in the following order: ["gamma -> theta", "theta -> lambda"] for the first route.
+To also allow to find these stretches in reverse route, one can use `Stretch::order` to order the stretches.
+This algorithm is very limited at the moment, but can easily be extended.
 
 ## Decisions & Future work
 

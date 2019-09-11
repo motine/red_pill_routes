@@ -1,5 +1,6 @@
 require 'httparty'
 
+# Transmits the routes to the given endpoint, using the given passphrase.
 class Transmitter
 
   def initialize(url, passphrase)

@@ -20,7 +20,7 @@ describe Database::Aggregator do
     it "it aggregates routes from multiple databases" do
       db1 = TestDatabase.new([@route1])
       db2 = TestDatabase.new([@route2])
-      routes = Database::Aggregator.new(db1, db2).routes
+      routes = Database::Aggregator.new([db1, db2]).routes
       routes.size.must_equal 2
       routes.must_include(@route1)
       routes.must_include(@route2)
