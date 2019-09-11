@@ -1,3 +1,6 @@
+# it is crucial to set the timezone to UTC, so the parsing of the timestamps does work as intended.
+ENV['TZ'] = 'UTC'
+
 require_relative 'route.rb'
 require_relative 'stretch.rb'
 require_relative 'database/base.rb'

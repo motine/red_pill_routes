@@ -19,6 +19,17 @@ ruby test/route_test.rb
 rake test
 ```
 
+## Notes
+
+### Class hierarchy
+
+TODO describe the architecture
+
+### Timezones
+
+We assume every timezone to be UTC (+00:00) unless specified differently.
+In `lib/lib.rb`, we set the environment variable for Ruby's default timezone, so using `Time.new` uses UTC.
+
 
 ## Decisions & Future work
 

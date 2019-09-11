@@ -5,8 +5,8 @@ require_relative 'test_helper'
 describe Database::Loophole do
   describe "parse" do
     before do
-      @route1 = Route.new("gamma", "lambda", Time.new(2030, 12, 31, 13, 00, 04, "+00:00"), Time.new(2030, 12, 31, 13, 00, 06, "+00:00"), "loophole")
-      @route2 = Route.new("beta", "lambda", Time.new(2030, 12, 31, 13, 00, 05, "+00:00"), Time.new(2030, 12, 31, 13, 00, 07, "+00:00"), "loophole")
+      @route1 = Route.new("gamma", "lambda", Time.new(2030, 12, 31, 13, 00, 04, "+00:00"), Time.new(2030, 12, 31, 13, 00, 06, "+00:00"), "loopholes")
+      @route2 = Route.new("beta", "lambda", Time.new(2030, 12, 31, 13, 00, 05, "+00:00"), Time.new(2030, 12, 31, 13, 00, 07, "+00:00"), "loopholes")
       @fixture_routes = [@route1, @route2]
     end
 

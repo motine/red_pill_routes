@@ -17,7 +17,4 @@ def main
   logger.info("successfully posted")
 end
 
-# it is crucial to set the timezone to UTC, so the parsing of the timestamps does work as intended.
-ENV['TZ'] = 'UTC'
-
 main
