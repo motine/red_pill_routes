@@ -16,5 +16,4 @@ describe Database::Loophole do
       @fixture_routes.each { |fixture| routes.must_include(fixture) }
     end
   end
-  # TODO: write more tests here
 end

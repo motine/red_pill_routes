@@ -27,4 +27,6 @@ rake test
   My rationale is, that later when this program becomes production code, the sources would be acquired dynamically anyway.
   Hence, we would then put the static files under `sources` into the `test` folder, so they semantically belong to the tests.
 - Depending on the stability of the input data, we could/should write much **more tests**.
-  Also, we could add more validations in during parsing, so we **detect faulty data** files.
+- Also, we should add more validations in during parsing, so we **detect faulty data** files.
+- Some of the parsing operations (such as joining/denormalizing) could be done with a helper library or a real database.
+  Again, I decided to not do this.

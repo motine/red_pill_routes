@@ -3,10 +3,10 @@
 require_relative 'lib/lib'
 
 def main
-  database = Database::Sentinel.new('sources/sentinels')
-  # database = Database::Aggregator.new(
-  #   Database::Loophole.new('sources/loopholes'),
-  #   Database::Loophole.new('sources/loopholes'))
+  database = Database::Aggregator.new(
+    Database::Loophole.new('sources/loopholes'),
+    Database::Sentinel.new('sources/sentinels'),
+    Database::Sniffer.new('sources/sniffers'))
   puts(database.routes)
 end
 
