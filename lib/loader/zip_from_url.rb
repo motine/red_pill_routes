@@ -26,5 +26,6 @@ module Loader
       end
       contents
     end
+
   end
 end
