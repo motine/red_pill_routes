@@ -21,7 +21,7 @@ module Database
         Route.new(
           sorted.first.start_node, sorted.last.end_node,
           start_time, start_time + route_duration,
-          'sniffer')
+          'sniffers')
       end
     end
 

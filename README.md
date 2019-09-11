@@ -20,7 +20,7 @@ rake test
 ```
 
 
-## Decisions
+## Decisions & Future work
 
 - I chose **minitest over rspec** to keep dependencies low
 - I chose to use the provided **source data as fixtures** for the tests.
@@ -30,3 +30,4 @@ rake test
 - Also, we should add more validations in during parsing, so we **detect faulty data** files.
 - Some of the parsing operations (such as joining/denormalizing) could be done with a helper library or a real database.
   Again, I decided to not do this.
+- We should **not store credentials** in the code (as seen in Transmitter). Here we should add a secret storage.

@@ -19,7 +19,7 @@ module Database
         Route.new(
           sorted.first.start_node, sorted.last.end_node,
           sorted.first.metadata.start_time, sorted.last.metadata.end_time,
-          'loophole')
+          'loopholes')
       end
     end
 

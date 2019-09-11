@@ -15,12 +15,13 @@ module Database
 
     def routes_from_entries(entries)
       entries.group_by(&:route_id).collect do |_route_id, route_entries|
+        next nil if route_entries.size == 1 # routes with no hop in between are bad
         sorted = route_entries.sort_by(&:index)
         Route.new(
           sorted.first.node, sorted.last.node,
           sorted.first.time, sorted.last.time,
-          'sentinel')
-      end
+          'sentinels')
+      end.compact
     end
 
     # returns a list of OpenStructs with attributes route_id, node, index, time.

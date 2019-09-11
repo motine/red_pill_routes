@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+gem 'httparty', '~> 0.17.0'
+
 # development
 group :development do
   gem 'minitest-rg'
