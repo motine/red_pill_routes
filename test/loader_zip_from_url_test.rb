@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'test_helper'
 
 require 'ostruct'
@@ -11,8 +13,8 @@ describe Loader::ZipFromUrl do
         contents = loader.retrieve('mysource')
 
         contents.keys.sort.must_equal ['a.txt', 'b.txt']
-        contents['a.txt'] == 'A'
-        contents['b.txt'] == 'B'
+        contents['a.txt'].must_equal 'A'
+        contents['b.txt'].must_equal 'B'
       end
     end
 
