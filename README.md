@@ -23,6 +23,8 @@ rake test
 ## Decisions
 
 - I chose **minitest over rspec** to keep dependencies low
-- I chose to use the provided source data as fixtures for the tests.
+- I chose to use the provided **source data as fixtures** for the tests.
   My rationale is, that later when this program becomes production code, the sources would be acquired dynamically anyway.
   Hence, we would then put the static files under `sources` into the `test` folder, so they semantically belong to the tests.
+- Depending on the stability of the input data, we could/should write much **more tests**.
+  Also, we could add more validations in during parsing, so we **detect faulty data** files.
