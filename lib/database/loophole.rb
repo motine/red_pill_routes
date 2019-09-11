@@ -42,8 +42,6 @@ module Database
       }
     end
 
-    # test if the time is really a time
-
     # returns a list of openstructs by reading from `routes.json` (format see in json file).
     # start_time and end_time are preprocessed
     def read_route_entries
