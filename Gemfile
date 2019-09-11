@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'httparty', '~> 0.17.0'
+gem 'rubyzip'
 
 # development
 group :development do

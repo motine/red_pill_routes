@@ -4,11 +4,16 @@ require 'ostruct'
 
 module Database
   class Sniffer < Base
+
+    def source
+      'sniffers'
+    end
+
     protected
 
     def parse_routes
-      stretches = denormalize(read_sequences, read_node_times)
-      return routes_from_stretches(stretches, read_route_entries)
+      stretches = denormalize(sequences, node_times)
+      @routes = routes_from_stretches(stretches, route_entries)
     end
 
     private
@@ -34,37 +39,28 @@ module Database
       end.compact
     end
 
-    def read_sequences
-      read_csv('sequences.csv').collect do |row|
-        OpenStruct.new(row.to_h)
-      end
+    def sequences
+      csv_content('sequences.csv')
     end
 
     # returns a hash mapping the node_time_id to an openstruct with (start_node, end_node, duration).
     # duration is measured in seconds
-    def read_node_times
-      read_csv('node_times.csv').reduce({}) do |acc, row|
-        acc[row['node_time_id']] = OpenStruct.new(
-          start_node: row["start_node"],
-          end_node: row["end_node"],
-          duration: row["duration_in_milliseconds"].to_f / 1000)
+    def node_times
+      csv_content('node_times.csv').reduce({}) do |acc, row|
+        row.duration = row.duration_in_milliseconds.to_f / 1000
+        acc[row.node_time_id] = row
         acc
       end
     end
 
     # returns a has mapping the route_id to OpenStructs with attribute time.
     # time is a preprocessed to be of type Time.
-    def read_route_entries
-      read_csv('routes.csv').reduce({}) do |acc, row|
-        raise 'Currently only a time_zone with "UTC±00:00" is supported in sniffer\'s "route.csv"' if row['time_zone'] != "UTC±00:00"
-        acc[row['route_id']] = OpenStruct.new(time: Time.parse(row['time']))
+    def route_entries
+      csv_content('routes.csv').reduce({}) do |acc, row|
+        raise 'Currently only a time_zone with "UTC±00:00" is supported in sniffer\'s "routes.csv"' if row.time_zone != "UTC±00:00"
+        acc[row.route_id] = OpenStruct.new(time: Time.parse(row.time))
         acc
       end
-    end
-
-    def read_csv(filename)
-      path = File.join(@absolute_folder_path, filename)
-      CSV.read(path, headers: true, quote_char: '"', col_sep: ', ', encoding: 'utf-8')
     end
   end
 end

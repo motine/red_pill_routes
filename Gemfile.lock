@@ -30,6 +30,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.1)
+    rubyzip (1.2.4)
     unicode-display_width (1.6.0)
 
 PLATFORMS
@@ -40,6 +41,7 @@ DEPENDENCIES
   minitest-rg
   pry
   rubocop
+  rubyzip
 
 BUNDLED WITH
    1.17.2

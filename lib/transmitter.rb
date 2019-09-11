@@ -1,18 +1,21 @@
 require 'httparty'
 
 class Transmitter
-  URL = 'https://challenge.distribusion.com/the_one/routes'
-  PASSPHRASE = 'Kans4s-i$-g01ng-by3-bye'
 
-  def self.transmit_all(routes)
+  def initialize(url, passphrase)
+    @url = url
+    @passphrase = passphrase
+  end
+
+  def transmit_all(routes)
     routes.each do |route|
       Transmitter.transmit(route)
     end
   end
 
-  def self.transmit(route)
+  def transmit(route)
     params = {
-      passphrase: PASSPHRASE,
+      passphrase: @passphrase,
       source: route.source,
       start_node: route.start_node, end_node: route.end_node,
       start_time: format_time(route.start_time), end_time: format_time(route.end_time)
@@ -23,7 +26,7 @@ class Transmitter
 
   private # this private clause has only informational value
 
-  def self.format_time(time)
+  def format_time(time)
     time.strftime("%Y-%m-%dT%H:%M:%S")
   end
 end

@@ -4,11 +4,16 @@ require 'ostruct'
 
 module Database
   class Loophole < Base
+
+    def source
+      'loopholes'
+    end
+
     protected
 
     def parse_routes
-      stretches = denormalize(read_route_entries, read_node_pairs)
-      return routes_from_stretches(stretches)
+      stretches = denormalize(route_entries, node_pairs)
+      @routes = routes_from_stretches(stretches)
     end
 
     private
@@ -19,7 +24,7 @@ module Database
         Route.new(
           sorted.first.start_node, sorted.last.end_node,
           sorted.first.metadata.start_time, sorted.last.metadata.end_time,
-          'loopholes')
+          source)
       end
     end
 
@@ -34,28 +39,21 @@ module Database
 
     # returns a hash by reading from `node_pairs.json`.
     # the key is the id of the node_pair, the value an openstruct with start_node and end_node set
-    def read_node_pairs
-      pairs = read_json_from_file('node_pairs.json')['node_pairs']
-      pairs.reduce({}) { |acc, pair| 
-        acc[pair['id']] = OpenStruct.new(start_node: pair['start_node'], end_node: pair['end_node'])
+    def node_pairs
+      json_array('node_pairs.json').reduce({}) { |acc, pair| 
+        acc[pair.id] = pair
         acc
       }
     end
 
     # returns a list of openstructs by reading from `routes.json` (format see in json file).
     # start_time and end_time are preprocessed
-    def read_route_entries
-      entries = read_json_from_file('routes.json')['routes']
-      entries.collect do |entry|
-        entry['start_time'] = Time.parse(entry['start_time'])
-        entry['end_time'] = Time.parse(entry['end_time'])
-        OpenStruct.new(entry)
+    def route_entries
+      json_array('routes.json').collect do |entry|
+        entry.start_time = Time.parse(entry.start_time)
+        entry.end_time = Time.parse(entry.end_time)
+        entry
       end
-    end
-
-    def read_json_from_file(filename)
-      path = File.join(@absolute_folder_path, filename)
-      return JSON.parse(File.read(path))
     end
   end
 end

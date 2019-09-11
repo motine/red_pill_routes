@@ -4,11 +4,15 @@ require 'ostruct'
 
 module Database
   class Sentinel < Base
+
+    def source
+      'sentinels'
+    end
+
     protected
 
     def parse_routes
-      entries = read_entries
-      return routes_from_entries(entries)
+      @routes = routes_from_entries(entries)
     end
 
     private
@@ -27,10 +31,8 @@ module Database
     # returns a list of OpenStructs with attributes route_id, node, index, time.
     # time is a preprocessed to be of type Time.
     # index is a preprocessed to be an integer (important for sorting later).
-    def read_entries
-      path = File.join(@absolute_folder_path, 'routes.csv')
-      CSV.read(path, headers: true, quote_char: '"', col_sep: ', ').collect do |row|
-        entry = OpenStruct.new(row.to_h)
+    def entries
+      csv_content('routes.csv').collect do |entry|
         entry.time = Time.parse(entry.time).utc
         entry.index = entry.index.to_i
         entry
