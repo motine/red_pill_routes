@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'zip'
 
 module Database
@@ -11,7 +13,7 @@ module Database
   class Base
     attr_reader :routes
 
-    def initialize(url=nil, passphrase=nil)
+    def initialize(url = nil, passphrase = nil)
       @url = url
       @passphrase = passphrase
       retrieve_contents
@@ -39,6 +41,7 @@ module Database
         # Handle entries one by one
         zip_file.each do |entry|
           next if entry.ftype != :file || entry.name.include?('__MACOSX')
+
           filename = File.basename(entry.name)
           content = entry.get_input_stream.read
           @contents[filename] = content

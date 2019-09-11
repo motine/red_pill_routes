@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # it is crucial to set the timezone to UTC, so the parsing of the timestamps does work as intended.
 ENV['TZ'] = 'UTC'
 

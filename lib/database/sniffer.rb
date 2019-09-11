@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'time'
 require 'csv'
 require 'ostruct'
 
 module Database
+  # Sniffer Database
   class Sniffer < Base
-
     def source
       'sniffers'
     end
@@ -26,7 +28,8 @@ module Database
         Route.new(
           sorted.first.start_node, sorted.last.end_node,
           start_time, start_time + route_duration,
-          source)
+          source
+        )
       end
     end
 
@@ -35,6 +38,7 @@ module Database
       sequences.collect do |sequence|
         node_time = node_times[sequence.node_time_id]
         next if node_time.nil?
+
         Stretch.new(sequence.route_id, node_time.start_node, node_time.end_node, node_time)
       end.compact
     end
@@ -46,20 +50,19 @@ module Database
     # Returns a hash mapping the node_time_id to an OpenStruct with (start_node, end_node, duration).
     # duration is measured in seconds.
     def node_times
-      @node_times ||= csv_content('node_times.csv').reduce({}) do |acc, row|
+      @node_times ||= csv_content('node_times.csv').each_with_object({}) do |row, acc|
         row.duration = row.duration_in_milliseconds.to_f / 1000
         acc[row.node_time_id] = row
-        acc
       end
     end
 
     # Returns a has mapping the route_id to OpenStructs with attribute time.
     # time is a preprocessed to be of type Time.
     def route_entries
-      csv_content('routes.csv').reduce({}) do |acc, row|
-        raise 'Currently only a time_zone with "UTC±00:00" is supported in sniffer\'s "routes.csv"' if row.time_zone != "UTC±00:00"
+      csv_content('routes.csv').each_with_object({}) do |row, acc|
+        raise 'Currently only a time_zone with "UTC±00:00" is supported in sniffer\'s "routes.csv"' if row.time_zone != 'UTC±00:00'
+
         acc[row.route_id] = OpenStruct.new(time: Time.parse(row.time))
-        acc
       end
     end
   end

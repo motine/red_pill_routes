@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require_relative 'test_helper'
 
 describe Route do
-  describe "constructor" do
-    it "can be instantiated" do
+  describe 'constructor' do
+    it 'can be instantiated' do
       start_time = Time.now
       end_time = Time.now
       r = Route.new('a', 'b', start_time, end_time, 'yeeey')

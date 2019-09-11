@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'httparty'
 
 # Transmits the routes to the given endpoint, using the given passphrase.
 class Transmitter
-
   def initialize(url, passphrase)
     @url = url
     @passphrase = passphrase
@@ -28,6 +29,6 @@ class Transmitter
   private # this private clause has only informational value
 
   def format_time(time)
-    time.strftime("%Y-%m-%dT%H:%M:%S")
+    time.strftime('%Y-%m-%dT%H:%M:%S')
   end
 end

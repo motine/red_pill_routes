@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'time'
 require 'json'
 require 'ostruct'
 
 module Database
+  # Loophole Database
   class Loophole < Base
-
     def source
       'loopholes'
     end
@@ -24,7 +26,8 @@ module Database
         Route.new(
           sorted.first.start_node, sorted.last.end_node,
           sorted.first.metadata.start_time, sorted.last.metadata.end_time,
-          source)
+          source
+        )
       end
     end
 
@@ -33,6 +36,7 @@ module Database
       route_entries.collect do |entry|
         node_pair = node_pairs[entry.node_pair_id]
         next nil if node_pair.nil?
+
         Stretch.new(entry.route_id, node_pair.start_node, node_pair.end_node, entry)
       end.compact
     end
@@ -40,10 +44,9 @@ module Database
     # Returns a hash by reading from `node_pairs.json`.
     # The key is the id of the node_pair, the value an OpenStruct with start_node and end_node set.
     def node_pairs
-      @node_pairs ||= json_array('node_pairs.json').reduce({}) { |acc, pair| 
+      @node_pairs ||= json_array('node_pairs.json').each_with_object({}) do |pair, acc|
         acc[pair.id] = pair
-        acc
-      }
+      end
     end
 
     # Returns a list of openstructs by reading from `routes.json` (format see in json file).

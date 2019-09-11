@@ -1,13 +1,14 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require_relative 'lib/lib'
 
 URL = 'https://challenge.distribusion.com/the_one/routes'
 PASSPHRASE = 'Kans4s-i$-g01ng-by3-bye'
-DATABASES_TO_INSTANCIATE = [Database::Loophole, Database::Sentinel, Database::Sniffer]
+DATABASES_TO_INSTANCIATE = [Database::Loophole, Database::Sentinel, Database::Sniffer].freeze
 
 def create_database(logger)
-  logger.info("Reading data from files")
+  logger.info('Reading data from files')
   database_instances = DATABASES_TO_INSTANCIATE.collect { |klass| klass.new(URL, PASSPHRASE) }
   database = Database::Aggregator.new(database_instances)
   logger.info("Found #{database.routes.size} routes.")
@@ -15,10 +16,10 @@ def create_database(logger)
 end
 
 def transmit_database(database, logger)
-  logger.info("Will post the routes now...")
+  logger.info('Will post the routes now...')
   transmitter = Transmitter.new(URL, PASSPHRASE)
   transmitter.transmit_all(database.routes)
-  logger.info("successfully posted")
+  logger.info('successfully posted')
 end
 
 def main

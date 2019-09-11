@@ -1,0 +1,14 @@
+# see the documentation for this file: https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+AllCops:
+  TargetRubyVersion: 2.6.4
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 20
+
+Style/StructInheritance:
+  Enabled: false

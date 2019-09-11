@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'test_helper'
 
 # please see README.md for notes on mocking data.
@@ -7,17 +9,19 @@ describe Database::Aggregator do
     def initialize(routes)
       @routes = routes
     end
-    
-    def source; 'test' end
+
+    def source
+      'test'
+    end
   end
 
-  describe "parse" do
+  describe 'parse' do
     before do
-      @route1 = Route.new("gamma", "lambda", Time.new(2030, 12, 31, 13, 00, 04, "+00:00"), Time.new(2030, 12, 31, 13, 00, 06, "+00:00"), "something")
-      @route2 = Route.new("beta", "lambda", Time.new(2030, 12, 31, 13, 00, 05, "+00:00"), Time.new(2030, 12, 31, 13, 00, 07, "+00:00"), "other")
+      @route1 = Route.new('gamma', 'lambda', Time.new(2030, 12, 31, 13, 0, 4, '+00:00'), Time.new(2030, 12, 31, 13, 0, 6, '+00:00'), 'something')
+      @route2 = Route.new('beta', 'lambda', Time.new(2030, 12, 31, 13, 0, 5, '+00:00'), Time.new(2030, 12, 31, 13, 0, 7, '+00:00'), 'other')
     end
 
-    it "it aggregates routes from multiple databases" do
+    it 'it aggregates routes from multiple databases' do
       db1 = TestDatabase.new([@route1])
       db2 = TestDatabase.new([@route2])
       routes = Database::Aggregator.new([db1, db2]).routes
