@@ -5,10 +5,12 @@ module Database
   #
   # The @contents member contains a hash mapping a filename to its contents.
   #
-  # Contract:
+  # Contract (strategy pattern):
   # The constructor will call retreive_contents and and parse_routes.
   # Both `source` and `parse_routes` must be overridden in deriving classes.
   class Base
+    ALLOWED_NODE_NAMES = %w[alpha beta gamma delta theta lambda tau psi omega].freeze
+
     attr_reader :routes
 
     def initialize(loader)
@@ -18,14 +20,14 @@ module Database
 
     # Determines the name of the source.
     def source
-      raise 'implement me!'
+      raise 'implement me in subclass!'
     end
 
     protected
 
     # Reads the data from the files and sets @routes. Must be overridden in the concrete classes.
     def parse_routes
-      raise 'implement me!'
+      raise 'implement me in subclass!'
     end
 
     # Reads the json from the filename's contents and returns a list of OpenStructs.

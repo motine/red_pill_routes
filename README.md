@@ -26,7 +26,7 @@ rake test
 A `Loader` is responsible to fetch data from a source (e.g. getting and unpacking the ZIP from the server).  
 A `Database` uses such a loader to retrieve the files and then uses this content to calculate the routes.  
 The `Database::Aggregator` merges multiple databases into one while fulfilling the same interface as `Database::Base`.  
-The `Transmitter` is responsible for sending a database to the Distribusion server.
+The `Transmitter` is responsible for sending a database's content to the Distribusion server.
 
 ### Timezones
 
@@ -37,16 +37,16 @@ In `lib/lib.rb`, we set the environment variable for Ruby's default timezone, so
 
 `Stretch` represents a part of a route.
 In the data retrieved from the sources, the connections between a route start and end node were always sorted.
-Yet, in real life one would assume, that the order might get scrambled up.
+Yet, one would assume, that the order might get scrambled up eventually.  
 For example in `loopholes` we have stretches in the following order: ["gamma -> theta", "theta -> lambda"] for the first route.
-To also allow to find these stretches in reverse route, one can use `Stretch::order` to order the stretches.
-This algorithm is very limited at the moment, but can easily be extended.
+To also allow to find these stretches in reverse order, one can use `Stretch::order` to bring them in the right sequence.
+This algorithm is very limited at the moment, but can be extended.
 
 ## Decisions & Future work
 
 - I chose **minitest over rspec** to keep dependencies low
 - I chose to use downloaded versions of the **source data as fixtures** for the tests.
-- Depending on the stability of the input data, we could/should write much **more tests**.
-- Also, we should add more validations in during parsing, so we **detect faulty data** files (e.g. we are only checking for the correct node name in Sentinel).
+- We could/should write much **more tests**.
+- Depending on the stability of the input data, we should add more validations during parsing, so we **detect faulty data** files (e.g. we are only checking for the correct node name in Sentinel).
 - Some of the parsing operations (such as joining/denormalizing) could be done with a helper library or a real database.
 - We should **not store credentials** in the code (as seen in Transmitter). Here we should add a secret storage.

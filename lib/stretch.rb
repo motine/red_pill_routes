@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
-# A value object for a a part of a route.
+# A value object for a part of a route.
 # Please see section in README.md.
 class Stretch < Struct.new(:route_id, :start_node, :end_node, :metadata)
   class << self
     # Takes a list of stretches an orders them so that they connect with each other.
     #
+    #
     # Limitation:
     # The stretches must have exactly one possibility to connect them.
     # If this should not hold true anymore, we would need to implement something a shortest path algorithm
+    # This method will throw an exception if there is more than one possibility or if there is no node to start with.
     #
-    # Example:
+    # Example (route_ids are omitted for better readability):
     # stretches = [Stretch.new('b', 'c'), Stretch.new('a', 'b'), Stretch.new('c', 'd')]
     # Stretch.order(stretches)
     # => [#Stretch<('a', 'b')>, #Stretch<('b', 'c')>, #Stretch<('c', 'd')>]

@@ -7,7 +7,7 @@ module Loader
   # It is supposed to return a hash mapping a file's name to file's contents.
   class Base
     def retrieve(_source)
-      raise 'implement me!'
+      raise 'implement me in subclass!'
     end
   end
 end

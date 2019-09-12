@@ -26,7 +26,7 @@ class Transmitter
     raise "Could not post the route, did not respond with status code created\ncode:#{response.code}\nroute: #{route.inspect}\n\nresponse:#{response}" unless response.code == 201
   end
 
-  private # this private clause has only informational value
+  private
 
   def format_time(time)
     time.strftime('%Y-%m-%dT%H:%M:%S')

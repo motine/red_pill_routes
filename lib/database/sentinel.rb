@@ -25,7 +25,7 @@ module Database
         Route.new(
           sorted.first.node, sorted.last.node,
           sorted.first.time, sorted.last.time,
-          'sentinels'
+          source
         )
       end.compact
     end
@@ -35,7 +35,7 @@ module Database
     # index is a preprocessed to be an integer (important for sorting later).
     def entries
       csv_content('routes.csv').collect do |entry|
-        next nil unless %w[alpha beta gamma delta theta lambda tau psi omega].include?(entry.node)
+        next nil unless ALLOWED_NODE_NAMES.include?(entry.node)
 
         entry.time = Time.parse(entry.time).utc
         entry.index = entry.index.to_i
